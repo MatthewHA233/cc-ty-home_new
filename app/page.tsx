@@ -16,7 +16,7 @@ const projects = [
   {
     title: "小目标追踪器",
     link: "https://gt.cc-ty.net.cn",
-      thumbnail: "/images/goal-tracker.png", // 支持GIF
+      thumbnail: "/images/goal-tracker.gif", // 支持GIF
   },
   {
     title: "洪流二语习得",
