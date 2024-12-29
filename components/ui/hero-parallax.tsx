@@ -1,4 +1,4 @@
-"use client";
+"use client"; // 指定此组件为客户端组件
 
 import React from "react";
 import {
@@ -10,7 +10,13 @@ import {
 } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { MaskContainer } from "./svg-mask-effect";
+import dynamic from "next/dynamic";
+
+// 动态导入 MaskContainer，禁用 SSR 以避免 Hydration 错误
+const MaskContainer = dynamic(() => import("./svg-mask-effect").then(mod => mod.MaskContainer), {
+  ssr: false,
+  loading: () => <p>加载中...</p>, // 可选的加载指示器
+});
 
 export const HeroParallax = ({
   products,
@@ -44,7 +50,7 @@ export const HeroParallax = ({
     springConfig
   );
   const opacity = useSpring(
-    useTransform(scrollYProgress, [0, 0.2], [0.2, 1]),
+    useTransform(scrollYProgress, [0, 0.4], [0.4, 1]),
     springConfig
   );
   const rotateZ = useSpring(
@@ -52,7 +58,7 @@ export const HeroParallax = ({
     springConfig
   );
   const translateY = useSpring(
-    useTransform(scrollYProgress, [0.1, 0.5], [-700, 100]),
+    useTransform(scrollYProgress, [0.1, 0.7], [-700, 100]),
     springConfig
   );
 
@@ -62,21 +68,31 @@ export const HeroParallax = ({
       className="h-[170vh] py-20 overflow-hidden antialiased relative flex flex-col self-auto [perspective:1000px] [transform-style:preserve-3d] bg-black"
     >
       <div className="max-w-7xl mx-auto px-4 w-full text-center mt-20 mb-40">
-        <h1 className="text-5xl md:text-7xl font-bold text-white bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-500 mb-10">
+        <h1 className="text-5xl md:text-7xl font-bold text-white bg-clip-text text-transparent bg-gradient-to-r from-white to-purple-500 mb-20">
           CC和汤圆的小栈
         </h1>
-        <div className="h-40">
+        <div className="h+[40rem] w-full flex items-center justify-center overflow-hidden">
           <MaskContainer
             revealText={
-              <p className="max-w-2xl text-base md:text-xl text-gray-300">
-                欢迎来到CC和汤圆的小栈！这里有我们的博客，以及制作的一些小应用。
-                目前已经收录的有：CC的博客、汤圆的博客、洪流二语习得、小目标追踪器。
+              <p className="max-w-4xl mx-auto text-slate-400 text-center text-4xl font-bold">
+                欢迎来到CC和汤圆的小栈！<br />
+                这里有我们的博客，以及制作的一些小应用。<br />
+                <p>
+                  目前已经收录的有：CC的博客、汤圆的博客、洪流二语习得、小目标追踪器。
+                </p>
               </p>
             }
           >
-            <p className="max-w-2xl text-base md:text-xl">
-              欢迎来到CC和汤圆的小栈！这里有我们的博客，以及制作的一些小应用。
-              目前已经收录的有：CC的博客、汤圆的博客、洪流二语习得、小目标追踪器。
+            <p className="max-w-4xl mx-auto text-black text-center text-4xl font-bold">
+              欢迎来到<span className="text-red-500">CC和汤圆的小栈</span>！<br />
+              这里有我们的博客，以及制作的一些小应用。<br />
+              <p>
+                目前已经收录的有：
+                <span className="text-red-500">CC的博客</span>、
+                <span className="text-red-500">汤圆的博客</span>、
+                <span className="text-red-500">洪流二语习得</span>、
+                <span className="text-red-500">小目标追踪器</span>。
+              </p>
             </p>
           </MaskContainer>
         </div>
