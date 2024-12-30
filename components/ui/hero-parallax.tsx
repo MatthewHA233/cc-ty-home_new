@@ -14,7 +14,7 @@ import dynamic from "next/dynamic";
 
 // 动态导入 MaskContainer，禁用 SSR 以避免 Hydration 错误
 const MaskContainer = dynamic(() => import("./svg-mask-effect").then(mod => mod.MaskContainer), {
-  ssr: true,
+  ssr: false,
   loading: () => <p>加载中...</p>, // 可选的加载指示器
 });
 
